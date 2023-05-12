@@ -39,7 +39,11 @@ rule merge_metadata:
           --cache {input.cache_metadata} \
           --new {input.metadata} \
           --groupby_col accession \
-          --outfile {output.metadata}
+          --outfile data/temp.tsv
+          
+        cat data/temp.tsv \
+        | csvtk sort -t -k updated:r \
+        > {output.metadata}
         """
 
 rule fix_titles:
@@ -70,21 +74,27 @@ rule fix_citations:
         metadata = "terra/metadata_all.tsv"
     shell:
         """
-        tsv-select -H -f accession,journal,title {input.cache_metadata} > data/cache_citations.tsv
+        # journal
+        dos2unix {input.metadata}
+        dos2unix {input.cache_metadata}
+        dos2unix {input.new_metadata}
+
+        tsv-select -H \
+          -f accession,journal,title {input.cache_metadata} \
+          > data/cache_citations.tsv
         cat {input.new_metadata} \
-        | tr '\r' '\n' | grep -v "^$" \
         | tsv-select -H -f accession,journal,title \
         > data/new_citations.tsv
 
         tsv-append -H data/cache_citations.tsv data/new_citations.tsv > data/citations.tsv
 
         cat {input.metadata} \
-        | tsv-select -H -e journal,title \
         | tsv-join -H \
-        --filter-file citations.tsv \
+        --filter-file data/citations.tsv \
         --key-fields accession \
         --append-fields journal,title \
-        --z \
+        --allow-duplicate-keys \
+        --write-all -1 \
         > {output.metadata}
         """
           

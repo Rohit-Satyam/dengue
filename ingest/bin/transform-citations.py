@@ -47,14 +47,20 @@ def fetch_and_print_citations(data: dict, genbank_id_field: str):
         )
         record = SeqIO.parse(handle, "genbank")
 
-        results_dict = dict()
+        title_dict = dict()
+        journal_dict = dict()
         for row in record:
-            results_dict[row.id.split(".")[0]] = row.annotations["references"][0].title
+            if "title" in row.annotations["references"][0]:
+                title_dict[row.id.split(".")[0]] = row.annotations["references"][0].title
+            if "journal" in row.annotations["references"][0]:
+                journal_dict[row.id.split(".")[0]] = row.annotations["references"][0].journal
 
         # Maintain the order in data
         for d in data:
-            if d["genbank_accession"] in results_dict:
-                d["title"] = results_dict[d["genbank_accession"]]
+            if d[genbank_id_field] in title_dict:
+                d["title"] = title_dict[d[genbank_id_field]]
+            if d[genbank_id_field] in journal_dict:
+                d["journal"] = journal_dict[d[genbank_id_field]]
 
             # Always print the record
             json.dump(d, stdout, allow_nan=False, indent=None, separators=",:")

@@ -35,6 +35,7 @@ ON046272 # 01488/09 # too divergent
 ON046271 # 01542/04 # too divergent
 MZ284953 # dev1 # too divergent
 MZ215848 # DKE_121 # too divergent
+OK605599 # DKE_121 # too divergent https://www.ncbi.nlm.nih.gov/pubmed/34610295
 MW946564 # SENDAK_HD_10674 # sylvatic
 OK605757 # DENV2_1_DAK_HD_76395 # sylvatic
 MW945427 # DENV3/PUERTORICO/1963/PRS_228762_AC27 # too divergent
