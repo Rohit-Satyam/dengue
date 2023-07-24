@@ -3,6 +3,7 @@
 import argparse
 import json
 from sys import stdin, stdout
+import re
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -14,6 +15,18 @@ def parse_args():
 def _set_strain_name(record):
     """Replace spaces, dashes, and periods with underscores in strain name."""
     strain_name = record["strain"]
+
+    strain_name = strain_name.replace('Dengue_virus', '')
+    strain_name = strain_name.replace('Human', '').replace('human', '').replace('H.sapiens_wt', '').replace('H.sapiens_tc', '').replace('Hsapiens_tc', '').replace('H.sapiens-tc', '').replace('Homo_sapiens', '').replace('Homo sapiens', '').replace('Hsapiens', '').replace('H.sapiens', '')
+    strain_name = strain_name.replace('_URI', '').replace('_SER', '').replace('_PLA', '').replace('_MOS', '').replace('_SAL', '')
+    strain_name = strain_name.replace('Aaegypti_wt', 'Aedes_aegypti').replace('Aedessp', 'Aedes_sp')
+    strain_name = strain_name.replace(' ', '').replace('\'', '').replace('(', '').replace(')', '').replace('//', '/').replace('__', '_').replace('.', '').replace(',', '')
+    strain_name = re.sub(r'^[\/\_\-]', '', strain_name)
+
+    try:
+        strain_name = 'V' + str(int(strain_name))
+    except ValueError:
+        pass
 
     return (
         strain_name.replace(" ", "_")
