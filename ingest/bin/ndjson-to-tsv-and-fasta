@@ -53,12 +53,12 @@ if __name__ == '__main__':
                         "This record will be excluded from the output files.",
                         file=stderr
                     )
-                elif not sequence:
-                    print(
-                        f"WARNING: Record number {index} does not have a sequence.",
-                        "This record will be excluded from the output files.",
-                        file=stderr
-                    )
+                # elif not sequence:
+                #     print(
+                #         f"WARNING: Record number {index} does not have a sequence.",
+                #         "This record will be excluded from the output files.",
+                #         file=stderr
+                #     )
                 else:
                     metadata_csv.writerow(record)
 
