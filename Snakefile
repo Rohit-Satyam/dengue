@@ -107,7 +107,8 @@ rule filter:
     input:
         sequences = "data/sequences_{serotype}.fasta",
         metadata = "results/wrangled_metadata_{serotype}.tsv",
-        exclude = files.dropped_strains
+        exclude = files.dropped_strains,
+        include_strains = "config/include_{serotype}.txt"
     output:
         sequences = "results/filtered_{serotype}.fasta"
     params:
@@ -120,6 +121,7 @@ rule filter:
             --sequences {input.sequences} \
             --metadata {input.metadata} \
             --exclude {input.exclude} \
+            --include {input.include_strains} \
             --output {output.sequences} \
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group} \
