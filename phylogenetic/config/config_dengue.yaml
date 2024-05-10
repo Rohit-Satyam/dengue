@@ -25,8 +25,18 @@ traits:
 
 clades:
   clade_definitions:
-    all: 'config/clades_serotypes.tsv'
-    denv1: 'config/clades_genotypes.tsv'
-    denv2: 'config/clades_genotypes.tsv'
-    denv3: 'config/clades_genotypes.tsv'
-    denv4: 'config/clades_genotypes.tsv'
+    all:
+      genome: 'config/clades_serotypes.tsv'
+      E: 'config/clades_genotypes_E.tsv'
+    denv1:
+      genome: 'config/clades_genotypes.tsv'
+      E: 'config/clades_genotypes_E.tsv'
+    denv2:
+      genome: 'config/clades_genotypes.tsv'
+      E: 'config/clades_genotypes_E.tsv'
+    denv3:
+      genome: 'config/clades_genotypes.tsv'
+      E: 'config/clades_genotypes_E.tsv'
+    denv4:
+      genome: 'config/clades_genotypes.tsv'
+      E: 'config/clades_genotypes_E.tsv'

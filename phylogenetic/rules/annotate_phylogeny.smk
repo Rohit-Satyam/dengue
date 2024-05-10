@@ -88,7 +88,7 @@ rule clades:
         tree = "results/genome/tree_{serotype}.nwk",
         nt_muts = "results/genome/nt-muts_{serotype}.json",
         aa_muts = "results/genome/aa-muts_{serotype}.json",
-        clade_defs = lambda wildcards: config['clades']['clade_definitions'][wildcards.serotype],
+        clade_defs = lambda wildcards: config['clades']['clade_definitions'][wildcards.serotype][wildcards.gene],
     output:
         clades = "results/genome/clades_{serotype}.json"
     shell:
