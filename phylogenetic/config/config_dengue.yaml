@@ -27,7 +27,7 @@ clades:
   clade_definitions:
     all:
       genome: 'config/clades_serotypes.tsv'
-      E: 'config/clades_genotypes_E.tsv'
+      E: 'config/clades_serotypes_E.tsv'
     denv1:
       genome: 'config/clades_genotypes.tsv'
       E: 'config/clades_genotypes_E.tsv'
