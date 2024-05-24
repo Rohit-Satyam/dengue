@@ -136,7 +136,7 @@ rule append_gene_coverage_columns:
         metadata="data/metadata_nextclade.tsv",
         gene_coverage=expand("results/{gene}/gene_coverage_all.tsv", gene=config["nextclade"]["gene"])
     output:
-        metadata_all="results/metadata_all.tsv",
+        metadata_all="data/metadata_all_appended.tsv",
     params:
         id_field=config["curate"]["id_field"],
     shell:
@@ -152,6 +152,21 @@ rule append_gene_coverage_columns:
             > results/temp_aggregate_gene_coverage.tsv
             mv results/temp_aggregate_gene_coverage.tsv {output.metadata_all}
         done
+        """
+
+rule numericify_denv2_genotypes:
+    """
+    Convert the DENV2 genotypes to numeric genotypes
+    """
+    input:
+        metadata="data/metadata_all_appended.tsv",
+    output:
+        metadata_numeric="results/metadata_all.tsv",
+    shell:
+        """
+        python bin/numericify-denv2-genotypes.py \
+          --metadata {input.metadata} \
+          > {output.metadata_numeric}
         """
 
 rule split_metadata_by_serotype:
