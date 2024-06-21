@@ -13,6 +13,33 @@ like to customize the rules:
 https://docs.nextstrain.org/projects/nextclade/page/user/nextclade-cli.html
 """
 
+rule nextclade_all:
+    """
+    Classify into the appropriate Dengue serotype using the Nextclade dataset
+    """
+    input:
+        sequences="results/sequences_all.fasta",
+    output:
+        nextclade_all="data/nextclade_results/nextclade_all.tsv",
+    threads: 4
+    params:
+        dataset = "nextstrain/dengue/all",
+        min_length=config["nextclade"]["min_length"],
+        min_seed_cover=0.01,
+    shell:
+        """
+        nextclade run \
+          --dataset-name {params.dataset} \
+          -j {threads} \
+          --output-tsv {output.nextclade_all} \
+          --min-length {params.min_length} \
+          --min-seed-cover {params.min_seed_cover} \
+          --silent \
+          {input.sequences}
+
+        # append to the metadata as serotype_nextclade to be compared against serotype_ncbi
+        """
+
 SUPPORTED_NEXTCLADE_SEROTYPES = ['denv1', 'denv2', 'denv3', 'denv4']
 SEROTYPE_CONSTRAINTS = '|'.join(SUPPORTED_NEXTCLADE_SEROTYPES)
 
