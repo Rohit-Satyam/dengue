@@ -1,4 +1,6 @@
 clade	gene	site	alt
+DENV3	C	13	I
+DENV3	NS2A	9	T
 DENV3/I	M	128	F
 DENV3/I	E	68	V
 DENV3/II	M	57	A

@@ -1,4 +1,6 @@
 clade	gene	site	alt
+DENV4	M	11	L
+DENV4	NS1	9	S
 DENV4/I	E	429	L
 DENV4/I	NS1	98	S
 DENV4/II	E	265	A
