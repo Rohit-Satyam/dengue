@@ -63,6 +63,6 @@ rule refine:
             --divergence-unit mutations \
             --keep-polytomies \
             --use-fft \
-            --root mid_point
-            #--root {params.root_args}
+            --root {params.root_args}
+            #--root mid_point
         """
